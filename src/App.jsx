@@ -9,6 +9,7 @@ import NotFound from './pages/NotFound';
 import TouristPage from './pages/TouristPage';
 import PackageList from './pages/PackageList';
 import PackageDetails from './components/PackageDetails';
+import ReservationForm from './components/ReservationForm';
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/tourist" element={<TouristPage />} />
         <Route path="/package" element={<PackageList />} />
         <Route path="/deets" element={<PackageDetails />} />
+        <Route path="/reserve" element={<ReservationForm />} />
       </Routes>
     </Router>
   );
