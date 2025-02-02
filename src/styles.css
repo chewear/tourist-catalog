@@ -1,0 +1,4 @@
+input:checked + span > span {
+  transform: translateX(1.25rem);
+  background-color: #4ade80; /* Green background when checked */
+}
