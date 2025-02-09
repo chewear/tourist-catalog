@@ -251,7 +251,9 @@ const TouristBooking = () => {
                     >
                         <option value="">Select</option>
                         <option value="Tour Guide Only">Tour Guide Only</option>
+                        <option value="Tour Guide and Translator">Tour Guide + Translator</option>
                         <option value="Tour Guide + Transportation">Tour Guide + Transportation</option>
+                        <option value="Tour Guide + Transportation + Translator">Tour Guide + Transportation + Translator</option>
                     </select>
                 </div>
             )}
