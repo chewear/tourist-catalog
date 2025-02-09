@@ -8,7 +8,7 @@ input:checked + span > span {
     background: url(./assets/BackgroundImage.png) repeat;
     
     -webkit-background-clip: text;
-    -webkit-text-stroke: 1px white;
+    /* -webkit-text-stroke: 1px white; */
     -webkit-text-fill-color: transparent;
 }
 
