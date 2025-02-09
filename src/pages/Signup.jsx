@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Add useNavigate
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { db } from '../firebaseConfig'; // Adjust the import path as necessary
 import { collection, addDoc } from "firebase/firestore";
@@ -16,6 +16,7 @@ const Signup = () => {
         contactNumber: '' // New field
     });
     const [errors, setErrors] = useState({});
+    const navigate = useNavigate(); // Initialize useNavigate
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -63,6 +64,7 @@ const Signup = () => {
             });
 
             alert("User created successfully");
+            navigate('/login'); // Navigate to login page
         } catch (error) {
             console.error("Error creating user: ", error);
             alert("Error creating user");
