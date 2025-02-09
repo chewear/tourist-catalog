@@ -11,47 +11,78 @@ import navarro from '../assets/members/navarro.png'
 import trias from '../assets/members/trias.png' 
 import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
 import '../styles.css';
+import { useState } from 'react';
 
 export default function LandingPage() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <div id="home" className="min-h-screen bg-white font-sans">
-      {/* Header - No Changes */}
+      {/* Header - Responsive */}
       <header className="w-full bg-white shadow-md sticky top-0 z-50">
         <div className="container mx-auto px-6 py-2 flex justify-between items-center">
           <img className="h-14" src={logo} alt="LocalLingua Logo" />
-          <nav>
+          <nav className="hidden md:flex">
             <ul className="flex space-x-12 items-center">
-
-            <li>
+              <li>
                 <a href="#home" className="text-[#002D70] text-lg font-medium border-b-2 border-transparent hover:font-semibold hover:border-[#FFD200] transition-all">
-                Home
+                  Home
                 </a>
-            </li>
-            <li>
+              </li>
+              <li>
                 <a href="#about" className="text-[#002D70] text-lg font-medium border-b-2 border-transparent hover:font-semibold hover:border-[#FFD200] transition-all">
-                About
+                  About
                 </a>
-            </li>
-            <li>
+              </li>
+              <li>
                 <a href="#our-team" className="text-[#002D70] text-lg font-medium border-b-2 border-transparent hover:font-semibold hover:border-[#FFD200] transition-all">
-                Our Team
+                  Our Team
                 </a>
-            </li>
-
+              </li>
             </ul>
           </nav>
-          <button className="px-6 py-2 rounded-full bg-[#C0001A] text-white font-bold hover:bg-[#A00016] transition-all" onClick={() => window.location.href='/login'}>
+          <button className="px-6 py-2 rounded-full bg-[#C0001A] text-white font-bold hover:bg-[#A00016] transition-all hidden md:block" onClick={() => window.location.href='/login'}>
             Book Now
           </button>
+          <button className="md:hidden text-3xl" onClick={() => setMenuOpen(!menuOpen)}>
+            &#9776;
+          </button>
         </div>
+        {menuOpen && (
+          <nav className="md:hidden bg-white shadow-md">
+            <ul className="flex flex-col items-center space-y-4 py-4">
+              <li>
+                <a href="#home" className="text-[#002D70] text-lg font-medium border-b-2 border-transparent hover:font-semibold hover:border-[#FFD200] transition-all">
+                  Home
+                </a>
+              </li>
+              <li>
+                <a href="#about" className="text-[#002D70] text-lg font-medium border-b-2 border-transparent hover:font-semibold hover:border-[#FFD200] transition-all">
+                  About
+                </a>
+              </li>
+              <li>
+                <a href="#our-team" className="text-[#002D70] text-lg font-medium border-b-2 border-transparent hover:font-semibold hover:border-[#FFD200] transition-all">
+                  Our Team
+                </a>
+              </li>
+              <li>
+                <button className="px-6 py-2 rounded-full bg-[#C0001A] text-white font-bold hover:bg-[#A00016] transition-all" onClick={() => window.location.href='/login'}>
+                  Book Now
+                </button>
+              </li>
+            </ul>
+          </nav>
+        )}
       </header>
 
       {/* Hero Section - No Changes */}
       <section className="relative h-[675px] flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: `url('https://gttp.images.tshiftcdn.com/311097/x/0/')` }}>
-        <div className="w-full h-full absolute top-0 left-0 bg-black opacity-60 z-10"></div>
+        <div className="w-full h-full absolute top-0 left-0 bg-black opacity-50 z-10"></div>
         <div className="text-center z-20">
-          <h1 className="tagline text-4xl md:text-6xl font-[Barbara] leading-tight uppercase mb-6">
-            “Explore with a local, like a local <br /> through local lingua”
+          <h1 className="herotag text-4xl md:text-6xl font-[Barbara] leading-tight uppercase mb-6">
+            <span className="tagline">Explore with a local, like a local </span><br /> 
+            through local lingua
           </h1>
           <button className="px-8 py-3 rounded-full bg-[#FFD200] text-[#002D70] font-bold hover:bg-[#D4A600] transition-all" onClick={() => window.location.href='/signup'}>
             Start Your Journey
@@ -86,7 +117,7 @@ export default function LandingPage() {
         {[
           { name: 'Lovely Mae Abao', role: 'Member', img: abao },
           { name: 'Em Joy Acuisa', role: 'Member', img: acuisa },
-          { name: 'Nicole Cleo', role: 'Member', img: cleo },
+          { name: 'Nicole Cleo Dela Cruz', role: 'Member', img: cleo },
           { name: 'Jos Anne Dayrit', role: 'Member', img: dayrit },
           { name: 'Cherrilyn Flores', role: 'Member', img: flores },
           { name: 'Catalina Libiran', role: 'Member', img: libiran },

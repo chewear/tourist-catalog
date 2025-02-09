@@ -66,6 +66,7 @@ const ReservationHistory = () => {
                 guideContact: guideData.contactNumber || "N/A",
                 guideEmail: guideData.email || "N/A",
                 guideRate: guideData.rate || "N/A",
+                tourOption: reservation.tourOption || "N/A",
                 activityNames: activityData,
                 date: reservation.date || "N/A",
                 status: reservation.status || "Unknown",
@@ -126,8 +127,9 @@ const ReservationHistory = () => {
               <h2>Reservation Receipt</h2>
               <p class="info"><strong>Reservation ID:</strong> ${reservation.id}</p>
               <p class="info"><strong>Location:</strong> ${reservation.locationName}</p>
-              <p class="info"><strong>Activities:</strong> ${reservation.activityNames.join(", ")}</p>
-              <p class="info"><strong>Date:</strong> ${reservation.date}</p>
+              <p class="info"><strong>Attractions:</strong> ${reservation.activityNames.join(", ")}</p>
+              <p class="info"><strong>Date:</strong> ${reservation.date}</p>    
+              <p class="info"><strong>Tour Option:</strong> ${reservation.tourOption}</p>
               <p class="info"><strong>Guide:</strong> ${reservation.guideName}</p>
               <p class="info"><strong>Contact:</strong> ${reservation.guideContact}</p>
               <p class="info"><strong>Email:</strong> ${reservation.guideEmail}</p>
@@ -154,6 +156,7 @@ const ReservationHistory = () => {
         </div>
       ) : (
         <div className="space-y-6">
+            {console.log(reservations)}
           {reservations.map((reservation) => (
             <div
               key={reservation.id}
@@ -183,8 +186,9 @@ const ReservationHistory = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <p><strong>Reservation ID:</strong> {reservation.id}</p>
                     <p><strong>Location:</strong> {reservation.locationName}</p>
-                    <p><strong>Activities:</strong> {reservation.activityNames.join(", ")}</p>
+                    <p><strong>Attractions:</strong> {reservation.activityNames.join(", ")}</p>
                     <p><strong>Date:</strong> {reservation.date}</p>
+                    <p><strong>Tour Option:</strong> {reservation.tourOption}</p>
                     <p><strong>Guide:</strong> {reservation.guideName}</p>
                     <p><strong>Contact:</strong> {reservation.guideContact}</p>
                     <p><strong>Email:</strong> {reservation.guideEmail}</p>

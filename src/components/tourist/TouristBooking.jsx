@@ -13,6 +13,7 @@ const TouristBooking = () => {
     const [date, setDate] = useState('');
     const [selectedGuide, setSelectedGuide] = useState(null);
     const [locationImage, setLocationImage] = useState("");
+    const [tourOption, setTourOption] = useState(''); // New state for tour option
     const toast = useRef(null);  // Reference for Toast
 
     useEffect(() => {
@@ -110,8 +111,8 @@ const TouristBooking = () => {
             return;
         }
 
-        if (!selectedGuide || !selectedLocation || selectedActivities.length === 0 || !date) {
-            alert("Please select a location, activities, date, and guide.");
+        if (!selectedGuide || !selectedLocation || selectedActivities.length === 0 || !date || !tourOption) {
+            alert("Please select a location, activities, date, guide, and tour option.");
             return;
         }
 
@@ -138,7 +139,8 @@ const TouristBooking = () => {
                         selectedLocation,
                         selectedActivities,
                         date,
-                        selectedGuide
+                        selectedGuide,
+                        tourOption // Include tour option in reservation
                     );
 
                     // Show success toast
@@ -157,6 +159,7 @@ const TouristBooking = () => {
                     setLocationImage('');
                     setActivities([]);
                     setGuides([]);
+                    setTourOption('');
                 } catch (error) {
                     console.error("Error creating reservation:", error);
                     alert("Something went wrong. Please try again.");
@@ -198,10 +201,10 @@ const TouristBooking = () => {
                 )}
             </div>
 
-            {/* Activities Selection */}
+            {/* Attractions Selection */}
             {selectedLocation && activities.length > 0 && (
                 <div className="mt-4">
-                    <label className="block" style={{ color: '#ED1C24' }}>Select Activities (up to 3):</label>
+                    <label className="block" style={{ color: '#ED1C24' }}>Select Attractions (up to 3):</label>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2">
                         {activities.map(activity => (
                             <div key={activity.id} className="flex flex-col items-center">
@@ -218,7 +221,9 @@ const TouristBooking = () => {
                                                     : prev
                                         );
                                     }}
+                                    checked={selectedActivities.includes(activity.id)}
                                     className="mb-2"
+                                    disabled={!selectedActivities.includes(activity.id) && selectedActivities.length >= 3}
                                 />
                                 <img src={activity.imageUrl || 'https://placehold.co/150x150'} alt={activity.name} className="h-24 w-24 rounded-lg mb-2 object-center object-cover" />
                                 <p className="text-center text-sm font-medium">{activity.name}</p>
@@ -238,10 +243,26 @@ const TouristBooking = () => {
 
             {selectedLocation && (
                 <div className="mt-4">
+                    <label className="block text-gray-700">Select Tour Guide Option:</label>
+                    <select
+                        value={tourOption}
+                        onChange={(e) => setTourOption(e.target.value)}
+                        className="w-full p-2 border border-gray-300 rounded mt-1"
+                    >
+                        <option value="">Select</option>
+                        <option value="Tour Guide Only">Tour Guide Only</option>
+                        <option value="Tour Guide + Transportation">Tour Guide + Transportation</option>
+                    </select>
+                </div>
+            )}
+
+            {selectedLocation && (
+                <div className="mt-4">
                     <h2 className="text-xl font-bold mb-2" style={{ color: '#FFD200' }}>Available Guides</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {guides.map(guide => (
                             <div key={guide.id} className="p-4 border border-gray-300 rounded hover:bg-gray-100">
+                                {console.log(guides)}
                                 <input
                                     type="radio"
                                     id={guide.id}
@@ -266,6 +287,7 @@ const TouristBooking = () => {
                                             <p><strong>Gender:</strong> {guide.gender}</p>
                                             <p><strong>Nationality:</strong> {guide.nationality}</p>
                                             <p><strong>Occupation:</strong> {guide.occupation}</p>
+                                            <p><strong>Bio:</strong> {guide.bio}</p>
                                         </div>
                                     </div>
                                 </label>

@@ -37,7 +37,7 @@ const AdminSidebar = () => {
                 <li className="hover:bg-gray-700 p-3 rounded-lg transition duration-300 ease-in-out cursor-pointer select-none">
                     <Link to="/admin/activities" className="flex items-center space-x-2">
                         <FaCalendarAlt className="text-xl" />
-                        <span>Activities</span>
+                        <span>Attractions</span>
                     </Link>
                 </li>
                 <li className="hover:bg-gray-700 p-3 rounded-lg transition duration-300 ease-in-out cursor-pointer select-none">

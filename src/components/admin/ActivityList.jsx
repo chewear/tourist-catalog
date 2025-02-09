@@ -122,7 +122,7 @@ const ActivityList = () => {
             <div className="mb-6 flex items-center space-x-6">
                 <input 
                     type="text" 
-                    placeholder="Search activities..." 
+                    placeholder="Search attractions..." 
                     value={searchTerm} 
                     onChange={handleSearchChange} 
                     className="p-3 w-5/6 border-2 border-gray-300 rounded-lg shadow-md focus:ring-2 focus:ring-blue-600"
@@ -131,7 +131,7 @@ const ActivityList = () => {
                     onClick={handleNewActivity} 
                     className="w-1/6 p-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-500 transition duration-200"
                 >
-                    New Activity
+                    New Attractions
                 </button>
             </div>
             {isLoading ? (

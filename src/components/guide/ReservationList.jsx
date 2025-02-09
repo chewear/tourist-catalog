@@ -59,6 +59,7 @@ const ReservationList = () => {
                         id: reservationDoc.id,
                         locationName,
                         date: reservation.date || "No Date",
+                        tourOption: reservation.tourOption || "No Option",
                         status: reservation.status || "Pending",
                         user: userInfo,
                         activityNames,
@@ -193,7 +194,8 @@ const ReservationList = () => {
                                 <p className="text-gray-600"><strong>Reserved By:</strong> {reservation.user.firstName} {reservation.user.lastName}</p>
                                 <p className="text-gray-600"><strong>Email:</strong> {reservation.user.email}</p>
                                 <p className="text-gray-600"><strong>Contact Number:</strong> {reservation.user.contactNumber}</p>
-                                <p className="text-gray-600"><strong>Activities:</strong> {reservation.activityNames.join(", ") || "None"}</p>
+                                <p className="text-gray-600"><strong>Attractions:</strong> {reservation.activityNames.join(", ") || "None"}</p>
+                                <p className="text-gray-600"><strong>Tour Option:</strong> {reservation.tourOption  || "No Option"}</p>
                                 <p className="text-gray-600"><strong>Date:</strong> {reservation.date}</p>
                             </div>
 

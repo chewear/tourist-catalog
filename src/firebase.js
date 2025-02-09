@@ -23,13 +23,14 @@ const db = getFirestore(app);
 const auth = getAuth(app);
 const storage = getStorage(app); // Initialize storage
 
-const createReservation = async (userId, locationId, activityIds, date, guideId) => {
+const createReservation = async (userId, locationId, activityIds, date, guideId, tourOption) => {
     try {
         const docRef = await addDoc(collection(db, "reservations"), {
             userId,
             locationId,
             activityIds,
             date,
+            tourOption,
             guideId, // Now storing the selected guide's document ID
             timestamp: new Date(),
             status: "pending",
