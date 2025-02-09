@@ -1,5 +1,5 @@
 import logo from '../assets/landingLogo.png';
-import aboutlogo from '../assets/logo.png';
+import aboutlogo from '../assets/Logo.png';
 import bg from '../assets/BackgroundImage.png'
 import abao from '../assets/members/abao.png'
 import acuisa from '../assets/members/acuisa.png'
