@@ -10,10 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@radix-ui/react-select": "^2.1.6",
+    "@shadcn/ui": "^0.0.4",
+    "@supabase/supabase-js": "^2.48.1",
     "@tailwindcss/vite": "^4.0.1",
     "axios": "^1.7.9",
     "firebase": "^11.2.0",
     "lucide-react": "^0.474.0",
+    "primeflex": "^3.3.1",
+    "primeicons": "^7.0.0",
+    "primereact": "^10.9.2",
     "react": "^18.3.1",
     "react-datepicker": "^8.0.0",
     "react-dom": "^18.3.1",

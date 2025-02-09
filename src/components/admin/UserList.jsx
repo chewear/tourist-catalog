@@ -4,10 +4,13 @@ import { collection, getDocs } from "firebase/firestore";
 
 const UserListItem = ({ user }) => {
     return (
-        <div className="flex justify-between items-center p-4 border-b hover:bg-gray-100 transition duration-200">
-            <span className="font-medium">{user.firstName} {user.lastName}</span>
-            <span className="text-gray-600">{user.email}</span>
-            <span className="text-gray-600">{user.role}</span>
+        <div className="flex justify-between items-center p-4 border-b border-gray-200 hover:bg-gray-50 transition duration-200">
+            <span className="flex-1 text-left font-medium text-gray-800">{user.firstName} {user.lastName}</span>
+            <span className="flex-1 text-left text-gray-600">{user.email}</span>
+            <span className="flex-1 text-left text-gray-600">{user.contactNumber}</span>
+            <span className={`text-sm font-semibold pl-40 ${user.role === "tour guide" ? "text-[#009E49]" : "text-[#0043A8]"} w-1/4 text-left`}>
+                {user.role}
+            </span>
         </div>
     );
 };
@@ -25,6 +28,7 @@ const UserList = () => {
             setUsers(usersList);
         };
         fetchUsers();
+        console.log(users);
     }, []);
 
     // Filter users (exclude admins)
@@ -34,9 +38,9 @@ const UserList = () => {
         .filter(user => roleFilter === "" || user.role === roleFilter);
 
     return (
-        <div className="p-6 bg-white rounded-lg shadow-lg">
-            <div className="flex justify-between items-center mb-6">
-                <h1 className="text-3xl font-bold text-gray-800">User List</h1>
+        <div className="p-8 bg-[#FFFFFF] rounded-lg shadow-sm max-w-7xl mx-auto">
+            <div className="flex justify-between items-center mb-8">
+                <h1 className="text-2xl font-bold text-[#0043A8]">User List</h1>
             </div>
             <div className="flex space-x-4 mb-6">
                 <input
@@ -44,33 +48,36 @@ const UserList = () => {
                     placeholder="Search users..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="p-3 border rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-[#0043A8] focus:border-transparent"
                 />
                 <select
                     value={roleFilter}
                     onChange={(e) => setRoleFilter(e.target.value)}
-                    className="p-3 border rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-[#0043A8] focus:border-transparent"
                 >
                     <option value="">All Roles</option>
                     <option value="tourist">Tourist</option>
                     <option value="tour guide">Tour Guide</option>
                 </select>
             </div>
-            <div className="flex justify-between items-center p-4 border-b font-bold text-gray-700">
-                <span>Name</span>
-                <span>Email</span>
-                <span>Role</span>
+            <div className="flex justify-between items-center p-4 bg-[#0043A8] rounded-t-lg font-bold text-white">
+                <span className="flex-1 text-left">Name</span>
+                <span className="flex-1 text-left">Email</span>
+                <span className="flex-1 text-left">Contact Number</span>
+                <span className="w-1/4 text-left pl-40 pr-4">Role</span> {/* Added padding to move the role slightly to the right */}
             </div>
-            {filteredUsers.length > 0 ? (
-                filteredUsers.map(user => (
-                    <UserListItem
-                        key={user.id}
-                        user={user}
-                    />
-                ))
-            ) : (
-                <div className="p-4 text-center text-gray-500">No users found</div>
-            )}
+            <div className="rounded-b-lg overflow-hidden shadow-sm">
+                {filteredUsers.length > 0 ? (
+                    filteredUsers.map(user => (
+                        <UserListItem
+                            key={user.id}
+                            user={user}
+                        />
+                    ))
+                ) : (
+                    <div className="p-6 text-center text-gray-500 bg-white">No users found</div>
+                )}
+            </div>
         </div>
     );
 };

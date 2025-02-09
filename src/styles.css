@@ -2,3 +2,28 @@ input:checked + span > span {
   transform: translateX(1.25rem);
   background-color: #4ade80; /* Green background when checked */
 }
+
+h1.tagline {
+    font-family: 'Barbara', "Alegreya SC", sans-serif;
+    background: url(./assets/BackgroundImage.png) repeat;
+    
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 1px white;
+}
+
+@font-face {
+    font-family: Barbara;
+    src: url("/src/assets/barbara.otf") format("opentype");
+}
+
+.cta {
+    background: url(./assets/BackgroundImage.png) repeat;
+    filter: brightness(0.6);
+}
+
+.cta_text {
+    font-family: 'Barbara', "Alegreya SC", sans-serif;  
+    -webkit-text-stroke: 2px white;
+    -webkit-text-fill-color: transparent;
+}

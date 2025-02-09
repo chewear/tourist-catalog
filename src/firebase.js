@@ -1,6 +1,7 @@
 import { initializeApp, getApps } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { getAuth, signOut } from 'firebase/auth';
+import { getStorage } from 'firebase/storage'; // Import Firebase storage
 
 const firebaseConfig = {
     apiKey: "YOUR_API_KEY",
@@ -20,5 +21,24 @@ if (!getApps().length) {
 
 const db = getFirestore(app);
 const auth = getAuth(app);
+const storage = getStorage(app); // Initialize storage
 
-export { db, auth };
+const createReservation = async (userId, locationId, activityIds, date, guideId) => {
+    try {
+        const docRef = await addDoc(collection(db, "reservations"), {
+            userId,
+            locationId,
+            activityIds,
+            date,
+            guideId, // Now storing the selected guide's document ID
+            timestamp: new Date(),
+            status: "pending",
+        });
+        console.log("Reservation created with ID: ", docRef.id);
+    } catch (e) {
+        console.error("Error adding reservation: ", e);
+    }
+};
+
+
+export { db, auth, storage, createReservation };

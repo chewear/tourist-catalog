@@ -70,64 +70,64 @@ const Signup = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
-            <h2 className="text-2xl font-bold text-center">Sign Up</h2>
-            <form className="space-y-4" onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label className="block text-sm font-medium text-gray-700">First Name:</label>
-                    <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} required className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200" />
-                    {errors.firstName && <p className="text-red-500 text-xs mt-1">{errors.firstName}</p>}
-                </div>
-                <div className="form-group">
-                    <label className="block text-sm font-medium text-gray-700">Last Name:</label>
-                    <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} required className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200" />
-                    {errors.lastName && <p className="text-red-500 text-xs mt-1">{errors.lastName}</p>}
-                </div>
-                <div className="form-group">
-                    <label className="block text-sm font-medium text-gray-700">Email:</label>
-                    <input type="email" name="email" value={formData.email} onChange={handleChange} required className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200" />
-                    {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
-                </div>
-                <div className="form-group">
-                    <label className="block text-sm font-medium text-gray-700">Contact Number:</label>
-                    <input type="text" name="contactNumber" value={formData.contactNumber} onChange={handleChange} required className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200" />
-                    {errors.contactNumber && <p className="text-red-500 text-xs mt-1">{errors.contactNumber}</p>}
-                </div>
-                <div className="form-group">
-                    <label className="block text-sm font-medium text-gray-700">Password:</label>
-                    <div className="relative">
-                        <input type={showPassword ? "text" : "password"} name="password" value={formData.password} onChange={handleChange} required className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200" />
-                        <button type="button" onClick={togglePasswordVisibility} className="absolute inset-y-0 right-0 px-3 py-2 text-gray-600">
-                            {showPassword ? "Hide" : "Show"}
-                        </button>
+        <div className="min-h-screen flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1503220317375-aaad61436b1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')" }}>
+            <div className="w-full max-w-md p-8 space-y-6 bg-white bg-opacity-90 rounded-lg shadow-md">
+                <h2 className="text-2xl font-bold text-center text-gray-800">Sign Up</h2>
+                <form className="space-y-1" onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label className="block text-sm font-medium text-gray-700">First Name:</label>
+                        <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} required className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200" />
+                        {errors.firstName && <p className="text-red-500 text-xs mt-1">{errors.firstName}</p>}
                     </div>
-                    {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
-                </div>
-                <div className="form-group">
-                    <label className="block text-sm font-medium text-gray-700">Confirm Password:</label>
-                    <div className="relative">
-                        <input type={showPassword ? "text" : "password"} name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} required className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200" />
-                        <button type="button" onClick={togglePasswordVisibility} className="absolute inset-y-0 right-0 px-3 py-2 text-gray-600">
-                            {showPassword ? "Hide" : "Show"}
-                        </button>
+                    <div className="form-group">
+                        <label className="block text-sm font-medium text-gray-700">Last Name:</label>
+                        <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} required className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200" />
+                        {errors.lastName && <p className="text-red-500 text-xs mt-1">{errors.lastName}</p>}
                     </div>
-                    {errors.confirmPassword && <p className="text-red-500 text-xs mt-1">{errors.confirmPassword}</p>}
+                    <div className="form-group">
+                        <label className="block text-sm font-medium text-gray-700">Email:</label>
+                        <input type="email" name="email" value={formData.email} onChange={handleChange} required className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200" />
+                        {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+                    </div>
+                    <div className="form-group">
+                        <label className="block text-sm font-medium text-gray-700">Contact Number:</label>
+                        <input type="text" name="contactNumber" value={formData.contactNumber} onChange={handleChange} required className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200" />
+                        {errors.contactNumber && <p className="text-red-500 text-xs mt-1">{errors.contactNumber}</p>}
+                    </div>
+                    <div className="form-group">
+                        <label className="block text-sm font-medium text-gray-700">Password:</label>
+                        <div className="relative">
+                            <input type={showPassword ? "text" : "password"} name="password" value={formData.password} onChange={handleChange} required className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200" />
+                            <button type="button" onClick={togglePasswordVisibility} className="absolute inset-y-0 right-0 px-3 py-2 text-gray-600">
+                                {showPassword ? "Hide" : "Show"}
+                            </button>
+                        </div>
+                        {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
+                    </div>
+                    <div className="form-group">
+                        <label className="block text-sm font-medium text-gray-700">Confirm Password:</label>
+                        <div className="relative">
+                            <input type={showPassword ? "text" : "password"} name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} required className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200" />
+                            <button type="button" onClick={togglePasswordVisibility} className="absolute inset-y-0 right-0 px-3 py-2 text-gray-600">
+                                {showPassword ? "Hide" : "Show"}
+                            </button>
+                        </div>
+                        {errors.confirmPassword && <p className="text-red-500 text-xs mt-1">{errors.confirmPassword}</p>}
+                    </div>
+                    <div className="form-group">
+                        <label className="block text-sm font-medium text-gray-700">Role:</label>
+                        <select name="role" value={formData.role} onChange={handleChange} required className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200">
+                            <option value="tourist">Tourist</option>
+                            <option value="tour guide">Tour Guide</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" className="w-full px-4 py-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-700">Sign Up</button>
+                </form>
+                <div className="flex justify-center mt-4">
+                    <Link to="/login" className="text-sm text-blue-950 hover:underline">Already have an account? <span className="font-semibold hover:underline">Login</span></Link>     
                 </div>
-                <div className="form-group">
-                    <label className="block text-sm font-medium text-gray-700">Role:</label>
-                    <select name="role" value={formData.role} onChange={handleChange} required className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200">
-                        <option value="tourist">Tourist</option>
-                        <option value="tour guide">Tour Guide</option>
-                    </select>
-                </div>
-                
-                <button type="submit" className="w-full px-4 py-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-700">Sign Up</button>
-            </form>
-            <div className="flex justify-center mt-4">
-                <Link to="/login" className="text-sm text-indigo-600 hover:underline">Login</Link>
             </div>
-        </div>
         </div>
     );
 };

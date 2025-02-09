@@ -4,6 +4,8 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from './firebaseConfig'; // Adjust the import path as necessary
 import './index.css';
+import { ConfirmDialog} from 'primereact/confirmdialog';
+
 import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';

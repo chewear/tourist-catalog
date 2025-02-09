@@ -1,0 +1,50 @@
+:root {
+    --primary: #f4f4f4;
+    --secondary: #0d3255;
+    --accent: #ffab2e;
+    --white: #e6e7e9;
+    --black: #151515;
+
+    --ongoing: #4653CC;
+    --onhold: #FFAB01;
+    --approved: #37B37E;
+    --forreturn: #FF5630;
+}
+
+.p-dialog-header,
+.p-dialog-content,
+.p-dialog-footer {
+    padding: 1rem 1.5rem;
+}
+
+.p-button {
+    padding: 0.25rem 0.5rem;
+    margin: 0 4px;
+}
+
+.p-confirm-dialog-accept {
+    padding: 0.25rem 0.5rem;
+    margin: 0 4px;
+    background-color: var(--accent);
+}
+
+.p-confirm-dialog-reject {
+    padding: 0.25rem 0.5rem;
+    margin: 0 4px;
+    color: var(--black);
+}
+
+.p-confirm-dialog-icon {
+    margin-right: 1rem;
+}
+.p-toast-message {
+    margin-bottom: 1rem;
+}
+
+.p-toast-message-content{
+    padding: 1rem;
+}
+
+.p-toast-message-content>svg {
+    margin-right: 1rem;
+}

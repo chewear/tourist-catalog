@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { doc, getDoc, setDoc, query, where, getDocs, collection } from "firebase/firestore";
 import { db, auth } from "../../firebase";
 import { onAuthStateChanged } from "firebase/auth";
+import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
+import { Toast } from 'primereact/toast';
 
 const TourGuideBio = () => {
   const [tourGuideInfo, setTourGuideInfo] = useState({
@@ -23,6 +25,8 @@ const TourGuideBio = () => {
     status: "",
     bio: "", // Add bio field
   });
+
+  const toast = useRef(null); // Reference for Toast
 
   useEffect(() => {
     const fetchTourGuideInfo = async (uid) => {
@@ -65,70 +69,205 @@ const TourGuideBio = () => {
 
   const handleSave = async () => {
     if (!tourGuideInfo.id) {
-      alert("User document not found!");
+      toast.current.show({
+        severity: 'warn',
+        summary: 'Warning',
+        detail: 'User document not found!',
+        life: 3000,
+      });
       return;
     }
 
-    const docRef = doc(db, "users", tourGuideInfo.id);
-    await setDoc(docRef, { ...tourGuideInfo }, { merge: true }); // Merge to avoid overwriting existing fields
-    alert("Information saved successfully!");
+    try {
+      const docRef = doc(db, "users", tourGuideInfo.id);
+      await setDoc(docRef, { ...tourGuideInfo }, { merge: true }); // Merge to avoid overwriting existing fields
+
+      toast.current.show({
+        severity: 'success',
+        summary: 'Success',
+        detail: 'Information saved successfully!',
+        life: 3000,
+      });
+    } catch (error) {
+      toast.current.show({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Error saving information!',
+        life: 3000,
+      });
+    }
+  };
+
+  const confirmSave = () => {
+    confirmDialog({
+      message: 'Are you sure you want to save your profile information?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: handleSave,
+      reject: () => {
+        toast.current.show({
+          severity: 'info',
+          summary: 'Cancelled',
+          detail: 'Profile update cancelled',
+          life: 3000,
+        });
+      }
+    });
   };
 
   return (
-    <div className="tour-guide-bio p-6 bg-white shadow-lg rounded-lg">
-      <h2 className="text-3xl font-semibold mb-6">Tour Guide Information</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <p><strong>First Name:</strong> <input type="text" name="firstName" value={tourGuideInfo.firstName} onChange={handleChange} className="border p-2 rounded w-full" /></p>
-        <p><strong>Last Name:</strong> <input type="text" name="lastName" value={tourGuideInfo.lastName} onChange={handleChange} className="border p-2 rounded w-full" /></p>
-        <p><strong>Age:</strong> <input type="number" name="age" value={tourGuideInfo.age} onChange={handleChange} className="border p-2 rounded w-full" min="18" /></p>
-        <p><strong>Gender:</strong> 
+    <div className="max-w-8xl mx-auto mt-8 p-6 bg-white shadow-md rounded-md">
+      <Toast ref={toast} />
+      <ConfirmDialog />
+
+      <h2 className="text-2xl font-bold text-gray-800 mb-4">Tour Guide Profile</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <input
+            type="text"
+            name="firstName"
+            value={tourGuideInfo.firstName}
+            onChange={handleChange}
+            placeholder="First Name"
+            className="border border-gray-300 p-2 rounded-md w-full text-sm"
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            name="lastName"
+            value={tourGuideInfo.lastName}
+            onChange={handleChange}
+            placeholder="Last Name"
+            className="border border-gray-300 p-2 rounded-md w-full text-sm"
+          />
+        </div>
+        <div>
+          <input
+            type="number"
+            name="age"
+            value={tourGuideInfo.age}
+            onChange={handleChange}
+            placeholder="Age"
+            className="border border-gray-300 p-2 rounded-md w-full text-sm"
+            min="18"
+          />
+        </div>
+        <div>
           <select
             name="gender"
             value={tourGuideInfo.gender}
             onChange={handleChange}
-            className="border p-2 rounded w-full"
+            className="border border-gray-300 p-2 rounded-md w-full text-sm"
           >
-            <option value="">Select</option>
+            <option value="">Gender</option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
           </select>
-        </p>
-        <p><strong>Occupation:</strong> <input type="text" name="occupation" value={tourGuideInfo.occupation} onChange={handleChange} className="border p-2 rounded w-full" /></p>
-        <p><strong>Address:</strong> <input type="text" name="address" value={tourGuideInfo.address} onChange={handleChange} className="border p-2 rounded w-full" /></p>
-        <p><strong>Nationality:</strong> <input type="text" name="nationality" value={tourGuideInfo.nationality} onChange={handleChange} className="border p-2 rounded w-full" /></p>
-        <p><strong>Status:</strong> <input type="text" name="status" value={tourGuideInfo.status} onChange={handleChange} className="border p-2 rounded w-full" /></p>
-        <p><strong>Email:</strong> <input type="email" name="email" value={tourGuideInfo.email} onChange={handleChange} className="border p-2 rounded w-full" /></p>
-        <p><strong>Contact Number:</strong> <input type="text" name="contactNumber" value={tourGuideInfo.contactNumber} onChange={handleChange} className="border p-2 rounded w-full" /></p>
-        <p><strong>Rate (PHP):</strong> <input type="number" name="rate" value={tourGuideInfo.rate} onChange={handleChange} className="border p-2 rounded w-full" /></p>
-        <p><strong>Guide Type:</strong> 
+        </div>
+        <div>
+          <input
+            type="text"
+            name="occupation"
+            value={tourGuideInfo.occupation}
+            onChange={handleChange}
+            placeholder="Occupation"
+            className="border border-gray-300 p-2 rounded-md w-full text-sm"
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            name="address"
+            value={tourGuideInfo.address}
+            onChange={handleChange}
+            placeholder="Address"
+            className="border border-gray-300 p-2 rounded-md w-full text-sm"
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            name="nationality"
+            value={tourGuideInfo.nationality}
+            onChange={handleChange}
+            placeholder="Nationality"
+            className="border border-gray-300 p-2 rounded-md w-full text-sm"
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            name="status"
+            value={tourGuideInfo.status}
+            onChange={handleChange}
+            placeholder="Status"
+            className="border border-gray-300 p-2 rounded-md w-full text-sm"
+          />
+        </div>
+        <div>
+          <input
+            type="email"
+            name="email"
+            value={tourGuideInfo.email}
+            onChange={handleChange}
+            placeholder="Email"
+            className="border border-gray-300 p-2 rounded-md w-full text-sm"
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            name="contactNumber"
+            value={tourGuideInfo.contactNumber}
+            onChange={handleChange}
+            placeholder="Contact Number"
+            className="border border-gray-300 p-2 rounded-md w-full text-sm"
+          />
+        </div>
+        <div>
+          <input
+            type="number"
+            name="rate"
+            value={tourGuideInfo.rate}
+            onChange={handleChange}
+            placeholder="Rate (PHP)"
+            className="border border-gray-300 p-2 rounded-md w-full text-sm"
+          />
+        </div>
+        <div>
           <select
             id="guideType"
             name="guideType"
-            className="border p-2 rounded w-full"
+            className="border border-gray-300 p-2 rounded-md w-full text-sm"
             value={tourGuideInfo.guideType}
             onChange={handleChange}
           >
-            <option value="">Select</option>
+            <option value="">Guide Type</option>
             <option value="Tour/Translator">Tour/Translator</option>
-            <option value="Tour/Translator/Transportation">Tour/Translator/Transportation</option>
+            <option value="Tour/Translator/Transportation">
+              Tour/Translator/Transportation
+            </option>
           </select>
-        </p>
+        </div>
       </div>
       <div className="mt-4">
-        <p><strong>Bio/Description:</strong> 
-          <textarea
-            name="bio"
-            value={tourGuideInfo.bio}
-            onChange={handleChange}
-            className="border p-2 rounded w-full min-h-24 max-h-40"
-          />
-        </p>
+        <textarea
+          name="bio"
+          value={tourGuideInfo.bio}
+          onChange={handleChange}
+          placeholder="Bio/Description"
+          className="border border-gray-300 p-2 rounded-md w-full text-sm min-h-[80px] max-h-[160px]"
+        />
       </div>
-      <button 
-        onClick={handleSave} 
-        className="mt-6 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition duration-300 ease-in-out">
-        Save
-      </button>
+      <div className="flex justify-end mt-4">
+        <button
+          onClick={confirmSave}
+          className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md text-sm transition duration-300 ease-in-out"
+        >
+          Save Profile
+        </button>
+      </div>
     </div>
   );
 };
