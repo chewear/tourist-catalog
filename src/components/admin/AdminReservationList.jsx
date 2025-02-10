@@ -98,7 +98,7 @@ const AdminReservationList = () => {
   });
 
   return (
-    <div className="max-w-[1300px] p-8 bg-gray-50 rounded-lg shadow-xl">
+    <div className="max-w-full p-8 bg-gray-50 rounded-lg shadow-xl">
       <h1 className="text-3xl font-semibold text-gray-800 mb-6">Reservation Management</h1>
 
       {/* Filters */}
@@ -161,7 +161,7 @@ const AdminReservationList = () => {
               {expandedId === reservation.id && (
                 <div className="p-6 bg-gray-50">
                   <p><strong className="text-gray-800">Location:</strong> {reservation.locationName}</p>
-                  <p><strong className="text-gray-800">Activities:</strong> {reservation.activityNames.join(", ") || "None"}</p>
+                  <p><strong className="text-gray-800">Attractions:</strong> {reservation.activityNames.join(", ") || "None"}</p>
                   <p><strong className="text-gray-800">Date:</strong> {formatDate(reservation.date)}</p>
                   <p><strong className="text-gray-800">Reserved By:</strong> {reservation.user.firstName} {reservation.user.lastName}</p>
                   <p><strong className="text-gray-800">Email:</strong> {reservation.user.email}</p>

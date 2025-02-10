@@ -14,15 +14,22 @@ const TouristBooking = () => {
     const [selectedGuide, setSelectedGuide] = useState(null);
     const [locationImage, setLocationImage] = useState("");
     const [tourOption, setTourOption] = useState(''); // New state for tour option
+    const [sortOrder, setSortOrder] = useState('asc'); // New state for sort order
     const toast = useRef(null);  // Reference for Toast
+
+    const toggleSortOrder = () => {
+        setSortOrder(prevOrder => (prevOrder === 'asc' ? 'desc' : 'asc'));
+    };
 
     useEffect(() => {
         const fetchLocations = async () => {
             const querySnapshot = await getDocs(collection(db, "locations"));
-            setLocations(querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+            const locationsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            locationsData.sort((a, b) => sortOrder === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)); // Sort locations based on sortOrder
+            setLocations(locationsData);
         };
         fetchLocations();
-    }, []);
+    }, [sortOrder]);
 
     useEffect(() => {
         const fetchLocationDetails = async () => {
@@ -184,14 +191,19 @@ const TouristBooking = () => {
 
             {/* Location Selection */}
             <div className="grid grid-cols-1 gap-4">
-                <div>
-                    <label className="block" style={{ color: '#009E49' }}>Select Location:</label>
-                    <select onChange={(e) => setSelectedLocation(e.target.value)} className="w-full p-2 border border-gray-300 rounded mt-1">
-                        <option value="">Select</option>
-                        {locations.map(location => (
-                            <option key={location.id} value={location.id}>{location.name}</option>
-                        ))}
-                    </select>
+                <div className='flex justify-between items-end gap-4'>
+                    <span className="w-[93%]">
+                        <label className="block" style={{ color: '#009E49' }}>Select Location:</label>
+                        <select onChange={(e) => setSelectedLocation(e.target.value)} className="w-full p-2 border border-gray-300 rounded mt-1">
+                            <option value="">Select</option>
+                            {locations.map(location => (
+                                <option key={location.id} value={location.id}>{location.name}</option>
+                            ))}
+                        </select>
+                    </span>
+                    <button onClick={toggleSortOrder} className="mt-2 p-2 bg-blue-900 text-white rounded">
+                        Sort {sortOrder === 'asc' ? 'Z-A' : 'A-Z'}
+                    </button>
                 </div>
 
                 {locationImage && (
