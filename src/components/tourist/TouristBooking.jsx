@@ -188,6 +188,7 @@ const TouristBooking = () => {
                     <label className="block" style={{ color: '#009E49' }}>Select Location:</label>
                     <select onChange={(e) => setSelectedLocation(e.target.value)} className="w-full p-2 border border-gray-300 rounded mt-1">
                         <option value="">Select</option>
+                        {console.log(locations)}
                         {locations.map(location => (
                             <option key={location.id} value={location.id}>{location.name}</option>
                         ))}
@@ -197,6 +198,11 @@ const TouristBooking = () => {
                 {locationImage && (
                     <div className="mt-4">
                         <img src={locationImage} alt="Location" className="w-full h-64 object-cover rounded-lg" />
+                        {selectedLocation && (
+                            <div className="my-4">
+                                <p>{locations.find(location => location.id === selectedLocation)?.description}</p>
+                            </div>
+                        )}
                     </div>
                 )}
             </div>
@@ -206,6 +212,7 @@ const TouristBooking = () => {
                 <div className="mt-4">
                     <label className="block" style={{ color: '#ED1C24' }}>Select Attractions (up to 3):</label>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2">
+                        {console.log(activities)}
                         {activities.map(activity => (
                             <div key={activity.id} className="flex flex-col items-center">
                                 <input
@@ -226,7 +233,8 @@ const TouristBooking = () => {
                                     disabled={!selectedActivities.includes(activity.id) && selectedActivities.length >= 3}
                                 />
                                 <img src={activity.imageUrl || 'https://placehold.co/150x150'} alt={activity.name} className="h-24 w-24 rounded-lg mb-2 object-center object-cover" />
-                                <p className="text-center text-sm font-medium">{activity.name}</p>
+                                <p className="text-center text-sm font-bold">{activity.name}</p>
+                                <p className="text-center text-xs">{activity.description}</p> {/* Render activity description */}
                             </div>
                         ))}
                     </div>
